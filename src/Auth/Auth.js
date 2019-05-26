@@ -23,7 +23,7 @@ export default class Auth {
       REDIRECT_ON_LOGIN,
       JSON.stringify(this.history.location)
     );
-    this.auth0.authorize();
+    this.auth0.authorize(); // redirects to callback url - specified in auth0, which calls handleAuthentication
   };
 
   handleAuthentication = () => {
@@ -36,7 +36,7 @@ export default class Auth {
             : JSON.parse(localStorage.getItem(REDIRECT_ON_LOGIN));
         this.history.push(redirectLocation); // tells react router that we want to redirect to a new url
       } else if (err) {
-        this.history.push("/");
+        this.history.push("/"); // redirect to home
         alert(`Error: ${err.error}. Check the console for further details.`);
         console.log(err);
       }
